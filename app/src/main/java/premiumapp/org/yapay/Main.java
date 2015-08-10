@@ -13,6 +13,7 @@ import de.greenrobot.event.EventBus;
 import premiumapp.org.yapay.services.YmConnectService;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.Category;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
+import premiumapp.org.yapay.ym_categories_tree_data_structure.ParentCategory;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.SubCategory;
 
 public class Main extends AppCompatActivity {
@@ -56,16 +57,28 @@ public class Main extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
 
         Category[] categories = tree.getCategories();
-        for (Category c : categories) {
 
-            sb.append(c.getName()).append(":\n");
+        for (Category category : categories) {
 
-            Set<SubCategory> subCategories = c.getSubCategories();
+            String name = category.getName();
+            sb.append(name).append(name.endsWith(":") ? "\n" : ":\n");
 
-            for (SubCategory s : subCategories) {
-                sb.append(" - ").append(s.getName()).append("\n");
-            }
+            fillSubcategoriesRecur(sb, category);
         }
         mJson.setText(sb);
+    }
+
+    private void fillSubcategoriesRecur(StringBuilder sb, ParentCategory parentCategory) {
+
+        Set<SubCategory> subCategories = parentCategory.getSubcategories();
+
+        if (subCategories == null) {
+            return;
+        }
+
+        for (SubCategory subCategory : subCategories) {
+            sb.append("  - ").append(subCategory.getName()).append("\n");
+            fillSubcategoriesRecur(sb, subCategory);
+        }
     }
 }

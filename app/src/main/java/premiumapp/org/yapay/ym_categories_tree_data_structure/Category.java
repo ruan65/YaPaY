@@ -3,7 +3,7 @@ package premiumapp.org.yapay.ym_categories_tree_data_structure;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Category {
+public class Category implements ParentCategory {
 
     private String name;
     private Set<SubCategory> subCategories;
@@ -17,7 +17,7 @@ public class Category {
         return name;
     }
 
-    public Set<SubCategory> getSubCategories() {
+    public Set<SubCategory> getSubcategories() {
         return subCategories;
     }
 

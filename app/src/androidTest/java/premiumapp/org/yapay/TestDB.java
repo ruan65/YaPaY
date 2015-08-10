@@ -22,7 +22,6 @@ public class TestDB extends AndroidTestCase {
     public void testCreateDb() throws Throwable {
 
         final HashSet<String> tableNamesSet = new HashSet<>();
-        tableNamesSet.add(Cv.CATEGORIES_TABLE_NAME);
         tableNamesSet.add(Cv.SUBCATEGORIES_TABLE_NAME);
 //        tableNamesSet.add("foo");
 
@@ -48,38 +47,43 @@ public class TestDB extends AndroidTestCase {
         db.close();
     }
 
-    public void testCategoryTable() {
+    public void testCategoryInsertion() {
 
         String phone = "Телефон";
         String www = "Интернет и ТВ";
 
-        Set<String> catNames = new HashSet<>();
-        catNames.add(phone);
-        catNames.add(www);
+        Set<String> testSetCatNames = new HashSet<>();
+        testSetCatNames.add(phone);
+        testSetCatNames.add(www);
 
         setUp();
 
         SQLiteDatabase db = new CategoriesDbHelper(mContext).getWritableDatabase();
 
-        db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, 0, phone));
-        db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, 1, www));
+        db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, phone));
+        db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, www));
 
-        Cursor cursor = db.query(Cv.CATEGORIES_TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.query(Cv.SUBCATEGORIES_TABLE_NAME, null, null, null, null, null, null);
 
         assertEquals(2, cursor.getCount());
-        assertEquals(2, cursor.getColumnCount());
+        assertEquals(3, cursor.getColumnCount());
 
         while (cursor.moveToNext()) {
+
             String category = cursor.getString(cursor.getColumnIndex(Cv.COL_NAME));
-            catNames.remove(category);
+
+            assertEquals(null, cursor.getString(cursor.getColumnIndex(Cv.COL_PARENT_NAME)));
+            assertEquals(0, cursor.getInt(cursor.getColumnIndex(Cv.COL_ID)));
+
+            testSetCatNames.remove(category);
         }
-        assertTrue(catNames.isEmpty());
+        assertTrue(testSetCatNames.isEmpty());
 
         cursor.close();
         db.close();
     }
 
-    public void testSubcategoryTable() {
+    public void testSubcategoryInsertion() {
 
         String phone = "Городской телефон";
         String mob = "Мобильная связь";
@@ -92,9 +96,9 @@ public class TestDB extends AndroidTestCase {
 
         SQLiteDatabase db = new CategoriesDbHelper(mContext).getWritableDatabase();
 
-        db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, 524624, phone, 0));
-        db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, 157291, mob, 0));
-        db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, 157298, ip, 0));
+        db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, 524624, phone, "Телефон"));
+        db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, 157291, mob, "Телефон"));
+        db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, 157298, ip, "Телефон"));
 
         Cursor cursor = db.query(Cv.SUBCATEGORIES_TABLE_NAME, null, null, null, null, null, null);
 
@@ -102,7 +106,11 @@ public class TestDB extends AndroidTestCase {
         assertEquals(3, cursor.getColumnCount());
 
         while (cursor.moveToNext()) {
+
             String category = cursor.getString(cursor.getColumnIndex(Cv.COL_NAME));
+
+            assertNotNull(cursor.getString(cursor.getColumnIndex(Cv.COL_PARENT_NAME)));
+            assertTrue(cursor.getInt(cursor.getColumnIndex(Cv.COL_ID)) != 0);
             catNames.remove(category);
         }
         assertTrue(catNames.isEmpty());

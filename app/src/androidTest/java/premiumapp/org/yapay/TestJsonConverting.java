@@ -23,7 +23,7 @@ public class TestJsonConverting extends AndroidTestCase {
         assertEquals("Телефон", categories[0].getName());
         assertEquals("А также:", categories[9].getName());
 
-        Set<SubCategory> subCategories = categories[9].getSubCategories();
+        Set<SubCategory> subCategories = categories[9].getSubcategories();
 
         Set<String> testSet = new HashSet<>(Arrays.asList(new String[] {
                 "Онлайн-аукционы",
