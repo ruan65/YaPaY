@@ -1,0 +1,11 @@
+<resources>
+
+    <style name="YapTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+
+    <style name="wrap_both">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

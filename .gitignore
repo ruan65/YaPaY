@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+/build
+/.gradle
+/.idea
+/gradle
+/gradle.properties
+/settings.gradle
+/src_code.iml
+/Yapay.iml
