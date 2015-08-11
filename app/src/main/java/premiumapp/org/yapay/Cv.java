@@ -30,8 +30,8 @@ public interface Cv {
             COL_ID + " INTEGER, " +
             COL_NAME + " TEXT NOT NULL, " +
             COL_PARENT_NAME + " TEXT, " +
-            "FOREIGN KEY (" + COL_PARENT_NAME + ") REFERENCES "
-            + SUBCATEGORIES_TABLE_NAME + " (" + COL_NAME + "));";
+            "FOREIGN KEY (" + COL_PARENT_NAME + ") REFERENCES " +
+            SUBCATEGORIES_TABLE_NAME + " (" + COL_NAME + "));";
 
     String SQL_DROP_SUBCATEGORIES_TABLE = "DROP TABLE IF EXISTS " + SUBCATEGORIES_TABLE_NAME;
 
@@ -40,4 +40,10 @@ public interface Cv {
 
     String SQL_INSERT_SUBCATEGORY = "INSERT INTO " + SUBCATEGORIES_TABLE_NAME + " (" +
             COL_ID + ", " + COL_NAME + ", " + COL_PARENT_NAME + ") VALUES (%d, '%s', '%s');";
+
+    String SQL_SELECT_CATEGORIES = "SELECT * FROM " + Cv.SUBCATEGORIES_TABLE_NAME +
+            " WHERE " + Cv.COL_PARENT_NAME + " IS null;";
+
+    String SQL_SELECT_SUBCATEGORIES = "SELECT * FROM " + Cv.SUBCATEGORIES_TABLE_NAME +
+            " WHERE " + Cv.COL_PARENT_NAME + " IS NOT null;";
 }

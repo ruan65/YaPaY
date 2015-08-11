@@ -7,4 +7,6 @@ public interface ParentCategory {
     void addSubcategory(SubCategory subCategory);
 
     Set<SubCategory> getSubcategories();
+
+    String getName();
 }

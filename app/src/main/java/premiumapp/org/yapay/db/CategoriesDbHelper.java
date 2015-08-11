@@ -14,13 +14,11 @@ public class CategoriesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        db.execSQL(Cv.SQL_CREATE_CATEGORIES_TABLE);
         db.execSQL(Cv.SQL_CREATE_SUBCATEGORIES_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        db.execSQL(Cv.SQL_DROP_CATEGORIES_TABLE);
         db.execSQL(Cv.SQL_DROP_SUBCATEGORIES_TABLE);
         onCreate(db);
     }

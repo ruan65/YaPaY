@@ -69,20 +69,33 @@ public class Util {
 
         Category[] categories = categoryTreeObject.getCategories();
 
-        for (int i = 0; i < categories.length; i++) {
-
-            Category category = categories[i];
+        for (Category category : categories) {
 
             // fill categories table
-            db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, i, category.getName()));
+            String categoryName = category.getName();
 
-            Set<SubCategory> subCategories = category.getSubcategories();
+            db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, categoryName));
 
-            for (SubCategory sc : subCategories) {
+            saveSubCatRecursive(db, category);
+        }
+    }
 
-                // fill subcategories table
-                db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, sc.getId(), sc.getName(), i));
-            }
+    private static void saveSubCatRecursive(SQLiteDatabase db, ParentCategory parent) {
+
+        Set<SubCategory> subCategories = parent.getSubcategories();
+
+        if (subCategories == null) {
+            return;
+        }
+
+        String parentName = parent.getName();
+
+        for (SubCategory sc : subCategories) {
+
+            // fill subcategories table
+            db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, sc.getId(), sc.getName(), parentName));
+
+            saveSubCatRecursive(db, sc);
         }
     }
 }

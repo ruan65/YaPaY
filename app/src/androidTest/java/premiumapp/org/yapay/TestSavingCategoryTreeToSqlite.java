@@ -15,17 +15,24 @@ import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
 
 public class TestSavingCategoryTreeToSqlite extends AndroidTestCase {
 
-    public void testDbSavingAndReading() throws JSONException {
+    public void testFunctionRecreateCategoryTreeSqliteDb() throws JSONException {
 
         Util.recreateCategoryTreeSqliteDb(mContext, new CategoryTree(TestUtil.testJsonString));
 
         SQLiteDatabase db = new CategoriesDbHelper(mContext).getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + Cv.SUBCATEGORIES_TABLE_NAME, null);
+        Cursor cursor = db.rawQuery(Cv.SQL_SELECT_CATEGORIES, null);
 
+        assertEquals(3, cursor.getColumnCount());
         assertEquals(10, cursor.getCount());
 
+        cursor = db.rawQuery(Cv.SQL_SELECT_SUBCATEGORIES, null);
+
+        assertEquals(29, cursor.getCount());
+
         cursor = db.rawQuery("SELECT * FROM " + Cv.SUBCATEGORIES_TABLE_NAME, null);
+
+        assertEquals(39, cursor.getCount());
 
         Set<String> testSet = new HashSet<>(Arrays.asList(new String[]{
                 "Онлайн-аукционы",
@@ -33,7 +40,8 @@ public class TestSavingCategoryTreeToSqlite extends AndroidTestCase {
                 "Прочее",
                 "Мобильная связь",
                 "Телевидение",
-                "Музыка и фильмы"
+                "Музыка и фильмы",
+                "Жанры:Action и шутеры"
         }));
 
         while (cursor.moveToNext()) {
@@ -41,7 +49,6 @@ public class TestSavingCategoryTreeToSqlite extends AndroidTestCase {
             testSet.remove(category);
         }
 
-        assertEquals(20, cursor.getCount());
         assertTrue(testSet.isEmpty());
 
         cursor.close();

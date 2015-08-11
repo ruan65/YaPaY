@@ -71,6 +71,8 @@ public class YmConnectService extends IntentService {
 
             bus.postSticky(cTree);
 
+            Util.recreateCategoryTreeSqliteDb(this, cTree);
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

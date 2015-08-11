@@ -35,5 +35,26 @@ public class TestJsonConverting extends AndroidTestCase {
             testSet.remove(sc.getName());
         }
         assertTrue(testSet.isEmpty());
+
+        Set<String> testRecursiveSet = new HashSet<>(Arrays.asList(new String[] {
+                "Жанры:Игровые артефакты",
+                "Жанры:Казуальные",
+                "Жанры:Action и шутеры"
+        }));
+
+        Category gamesAndCommunication = categories[4];
+
+        for (SubCategory subCategory : gamesAndCommunication.getSubcategories()) {
+
+
+            if (subCategory.getSubcategories() != null) {
+                Set<SubCategory> games = subCategory.getSubcategories();
+
+                for (SubCategory sc : games) {
+                    testRecursiveSet.remove(sc.getName());
+                }
+            }
+        }
+        assertTrue(testRecursiveSet.isEmpty());
     }
 }
