@@ -26,9 +26,9 @@ public class TestSavingCategoryTreeToSqlite extends AndroidTestCase {
         assertEquals(3, cursor.getColumnCount());
         assertEquals(10, cursor.getCount());
 
-        cursor = db.rawQuery(Cv.SQL_SELECT_SUBCATEGORIES, null);
+        cursor = db.rawQuery(String.format(Cv.SQL_SELECT_SUBCATEGORIES, "Игры и общение"), null);
 
-        assertEquals(29, cursor.getCount());
+        assertEquals(3, cursor.getCount());
 
         cursor = db.rawQuery("SELECT * FROM " + Cv.SUBCATEGORIES_TABLE_NAME, null);
 

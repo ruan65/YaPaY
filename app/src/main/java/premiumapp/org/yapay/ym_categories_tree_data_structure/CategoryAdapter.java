@@ -1,39 +1,38 @@
 package premiumapp.org.yapay.ym_categories_tree_data_structure;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import premiumapp.org.yapay.Cv;
 import premiumapp.org.yapay.R;
 
-public class CategoryAdapter extends CursorAdapter {
+public class CategoryAdapter extends ArrayAdapter<Category> {
 
+    private LayoutInflater mInflater;
 
-    public CategoryAdapter(Context context, Cursor c, int flags) {
-        super(context, c, flags);
+    public CategoryAdapter(Context context) {
+        super(context, R.layout.list_item_category);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.list_item_category, parent, false);
-        v.setTag(new ViewHolderCategory(v));
+        View view;
 
-        return v;
-    }
+        if (convertView == null) {
+            view = mInflater.inflate(R.layout.list_item_category, parent, false);
+            view.setTag(new ViewHolderCategory(view));
+        } else {
+            view = convertView;
+        }
 
-    @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+        ((ViewHolderCategory) view.getTag()).categoryView.setText(getItem(position).getName());
 
-        ViewHolderCategory holder = (ViewHolderCategory) view.getTag();
-
-        holder.categoryView.setText(cursor.getString(cursor.getColumnIndex(Cv.COL_NAME)));
-
+        return view;
     }
 
     public static class ViewHolderCategory {

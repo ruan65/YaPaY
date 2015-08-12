@@ -120,6 +120,7 @@ public class Util {
             categories[i] = category;
             i++;
         }
+        catCursor.close();
         return new CategoryTree(categories);
     }
 
@@ -141,6 +142,8 @@ public class Util {
                 parent.addSubcategory(subCategory);
 
             } while (subCursor.moveToNext());
+
+            subCursor.close();
         }
     }
 }
