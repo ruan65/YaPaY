@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import de.greenrobot.event.EventBus;
 import premiumapp.org.yapay.Cv;
 import premiumapp.org.yapay.Util;
 import premiumapp.org.yapay.services.YmConnectService;
@@ -18,6 +19,7 @@ public class CategoryTreeLoader extends AsyncTaskLoader<CategoryTree> {
     public CategoryTreeLoader(Context context) {
         super(context);
         mCtx = context;
+        EventBus.getDefault().register(this);
         onContentChanged();
     }
 
@@ -55,5 +57,15 @@ public class CategoryTreeLoader extends AsyncTaskLoader<CategoryTree> {
         if (takeContentChanged()) {
             forceLoad();
         }
+    }
+
+    @Override
+    protected void onReset() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(DataChangedEvent event) {
+        onContentChanged();
+        Toast.makeText(mCtx, "Data has refreshed!!!", Toast.LENGTH_LONG).show();
     }
 }

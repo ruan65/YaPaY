@@ -2,9 +2,7 @@ package premiumapp.org.yapay.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -14,18 +12,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Set;
 
 import de.greenrobot.event.EventBus;
 import premiumapp.org.yapay.Cv;
-import premiumapp.org.yapay.R;
 import premiumapp.org.yapay.Util;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.Category;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
+import premiumapp.org.yapay.ym_categories_tree_data_structure.DataChangedEvent;
 
 public class YmConnectService extends IntentService {
-
-    private EventBus bus = EventBus.getDefault();  // singleton event bus for all events across app
 
     public YmConnectService() {
         super(Cv.YM_SERVICE_NAME);
@@ -50,9 +44,9 @@ public class YmConnectService extends IntentService {
             e.printStackTrace();
         }
 
-//        bus.postSticky(cTree);
-
         Util.recreateCategoryTreeSqliteDb(this, cTree);
+
+        EventBus.getDefault().post(new DataChangedEvent());
     }
 
     public static String getCategoriesFromYmServer() {
