@@ -22,6 +22,10 @@ public class CategoryTree {
         }
     }
 
+    public CategoryTree(Category[] categories) {
+        this.categories = categories;
+    }
+
     public Category[] getCategories() {
         return categories;
     }

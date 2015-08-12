@@ -8,4 +8,14 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="match_both">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="list_item_style" parent="match_both">
+        <!-- Here it's a stub.  In screens of sufficient width, this style includes modifications
+         for two-pane layout -->
+    </style>
+
 </resources>

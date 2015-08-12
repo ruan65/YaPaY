@@ -45,5 +45,5 @@ public interface Cv {
             " WHERE " + Cv.COL_PARENT_NAME + " IS null;";
 
     String SQL_SELECT_SUBCATEGORIES = "SELECT * FROM " + Cv.SUBCATEGORIES_TABLE_NAME +
-            " WHERE " + Cv.COL_PARENT_NAME + " IS NOT null;";
+            " WHERE " + Cv.COL_PARENT_NAME + " = '%s';";
 }

@@ -1,0 +1,9 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_both">
+
+    <ListView
+        android:id="@+id/listview_categories"
+        android:divider="@null"
+        style="@style/list_item_style" />
+
+</FrameLayout>

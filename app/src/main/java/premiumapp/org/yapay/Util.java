@@ -1,6 +1,7 @@
 package premiumapp.org.yapay;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.json.JSONArray;
@@ -96,6 +97,50 @@ public class Util {
             db.execSQL(String.format(Cv.SQL_INSERT_SUBCATEGORY, sc.getId(), sc.getName(), parentName));
 
             saveSubCatRecursive(db, sc);
+        }
+    }
+
+    public static CategoryTree getCategoryTreeFromSqliteDb(Context ctx) {
+
+        SQLiteDatabase db = new CategoriesDbHelper(ctx).getReadableDatabase();
+
+        Cursor catCursor = db.rawQuery(Cv.SQL_SELECT_CATEGORIES, null);
+
+        Category[] categories = new Category[catCursor.getCount()];
+
+        int i = 0;
+        while (catCursor.moveToNext()) {
+
+            String catName = catCursor.getString(catCursor.getColumnIndex(Cv.COL_NAME));
+
+            Category category = new Category(catName);
+
+            fillSubCategoriesRecursive(db, category);
+
+            categories[i] = category;
+            i++;
+        }
+        return new CategoryTree(categories);
+    }
+
+    private static void fillSubCategoriesRecursive(SQLiteDatabase db, ParentCategory parent) {
+
+        Cursor subCursor =
+                db.rawQuery(String.format(Cv.SQL_SELECT_SUBCATEGORIES, parent.getName()), null);
+
+        if (subCursor.moveToFirst()) {
+
+            do {
+                SubCategory subCategory = new SubCategory(
+                        subCursor.getInt(subCursor.getColumnIndex(Cv.COL_ID)),
+                        subCursor.getString(subCursor.getColumnIndex(Cv.COL_NAME))
+                );
+
+                fillSubCategoriesRecursive(db, subCategory);
+
+                parent.addSubcategory(subCategory);
+
+            } while (subCursor.moveToNext());
         }
     }
 }

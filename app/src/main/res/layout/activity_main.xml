@@ -1,19 +1,7 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Main">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/json_result"
-            style="@style/wrap_both"
-            android:text="Stub" />
-
-    </ScrollView>
-
-
-</RelativeLayout>
+    android:id="@+id/fragment_categories"
+    android:name="premiumapp.org.yapay.fragments.CategoriesFragment"
+    style="@style/match_both"
+    tools:context="premiumapp.org.yapay.fragments.CategoriesFragment"
+    tools:layout="@android:layout/list_content" />

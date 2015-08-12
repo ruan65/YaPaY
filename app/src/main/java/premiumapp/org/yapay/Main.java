@@ -18,14 +18,10 @@ import premiumapp.org.yapay.ym_categories_tree_data_structure.SubCategory;
 
 public class Main extends AppCompatActivity {
 
-    private TextView mJson;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mJson = (TextView) findViewById(R.id.json_result);
 
         EventBus.getDefault().registerSticky(this); // singleton event bus for all events across app
     }
@@ -65,7 +61,7 @@ public class Main extends AppCompatActivity {
 
             fillSubcategoriesRecur(sb, category);
         }
-        mJson.setText(sb);
+//        mJson.setText(sb);
     }
 
     private void fillSubcategoriesRecur(StringBuilder sb, ParentCategory parentCategory) {
