@@ -22,8 +22,6 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        EventBus.getDefault().registerSticky(this); // singleton event bus for all events across app
     }
 
     @Override
@@ -46,35 +44,5 @@ public class Main extends AppCompatActivity {
                 startService(new Intent(this, YmConnectService.class));
         }
         return true;
-    }
-
-    public void onEventMainThread(CategoryTree tree) {
-
-        StringBuilder sb = new StringBuilder();
-
-        Category[] categories = tree.getCategories();
-
-        for (Category category : categories) {
-
-            String name = category.getName();
-            sb.append(name).append(name.endsWith(":") ? "\n" : ":\n");
-
-            fillSubcategoriesRecur(sb, category);
-        }
-//        mJson.setText(sb);
-    }
-
-    private void fillSubcategoriesRecur(StringBuilder sb, ParentCategory parentCategory) {
-
-        Set<SubCategory> subCategories = parentCategory.getSubcategories();
-
-        if (subCategories == null) {
-            return;
-        }
-
-        for (SubCategory subCategory : subCategories) {
-            sb.append("  - ").append(subCategory.getName()).append("\n");
-            fillSubcategoriesRecur(sb, subCategory);
-        }
     }
 }

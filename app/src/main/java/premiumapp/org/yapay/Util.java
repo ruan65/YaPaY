@@ -106,10 +106,14 @@ public class Util {
 
         Cursor catCursor = db.rawQuery(Cv.SQL_SELECT_CATEGORIES, null);
 
+        if (!catCursor.moveToFirst()) {
+            return null;
+        }
+
         Category[] categories = new Category[catCursor.getCount()];
 
         int i = 0;
-        while (catCursor.moveToNext()) {
+        do {
 
             String catName = catCursor.getString(catCursor.getColumnIndex(Cv.COL_NAME));
 
@@ -119,8 +123,10 @@ public class Util {
 
             categories[i] = category;
             i++;
-        }
+        } while (catCursor.moveToNext());
+
         catCursor.close();
+
         return new CategoryTree(categories);
     }
 

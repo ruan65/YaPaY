@@ -58,11 +58,14 @@ public class CategoriesFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<CategoryTree> loader, CategoryTree data) {
 
-        switch (loader.getId()) {
-            case LOADER_ID:
-                mCategoryAdapter.clear();
-                mCategoryAdapter.addAll(Arrays.asList(data.getCategories()));
-                break;
+        if (data != null) {
+
+            switch (loader.getId()) {
+                case LOADER_ID:
+                    mCategoryAdapter.clear();
+                    mCategoryAdapter.addAll(Arrays.asList(data.getCategories()));
+                    break;
+            }
         }
     }
 

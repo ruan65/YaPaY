@@ -2,6 +2,7 @@ package premiumapp.org.yapay.services;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,9 +34,32 @@ public class YmConnectService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        String categoriesJsonString = getCategoriesFromYmServer();
+
+        Log.d(Cv.LOG_TAG, "categoriesJsonString = " + categoriesJsonString);
+
+
+        if (categoriesJsonString == null) return; // Stream was empty.  No point in parsing.
+
+
+        CategoryTree cTree = null;
+
+        try {
+            cTree = new CategoryTree(categoriesJsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+//        bus.postSticky(cTree);
+
+        Util.recreateCategoryTreeSqliteDb(this, cTree);
+    }
+
+    public static String getCategoriesFromYmServer() {
+
         HttpURLConnection connection = null;
         BufferedReader reader = null;
-        String categories;
+        String categoriesJsonString = null;
 
         try {
 
@@ -48,7 +72,7 @@ public class YmConnectService extends IntentService {
             InputStream inputStream = connection.getInputStream();
 
             if (inputStream == null) {
-                return; // nothing to do
+                return null;
             }
 
             reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -62,22 +86,13 @@ public class YmConnectService extends IntentService {
             }
 
             if (builder.length() == 0) {
-                return; // Stream was empty.  No point in parsing.
+                return null;
             }
 
-            categories = builder.toString();
-
-            CategoryTree cTree = new CategoryTree(categories);
-
-            bus.postSticky(cTree);
-
-            Util.recreateCategoryTreeSqliteDb(this, cTree);
+            categoriesJsonString = builder.toString();
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this, R.string.err_json, Toast.LENGTH_LONG).show();
 
         } finally {
 
@@ -94,5 +109,6 @@ public class YmConnectService extends IntentService {
                 }
             }
         }
+        return categoriesJsonString;
     }
 }
