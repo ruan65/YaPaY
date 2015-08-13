@@ -8,13 +8,13 @@ import premiumapp.org.yapay.Util;
 
 public class CategoryTree {
 
-    private Category[] categories;
+    private SubCategory[] categories;
 
     public CategoryTree(String jsonString) throws JSONException {
 
-        List<Category> categoriesTree = Util.getCategoryTreeFromJsonString(jsonString);
+        List<SubCategory> categoriesTree = Util.getCategoryTreeFromJsonString(jsonString);
 
-        categories = new Category[categoriesTree.size()];
+        categories = new SubCategory[categoriesTree.size()];
 
         for (int i = 0; i < categories.length; i++) {
 
@@ -22,11 +22,11 @@ public class CategoryTree {
         }
     }
 
-    public CategoryTree(Category[] categories) {
+    public CategoryTree(SubCategory[] categories) {
         this.categories = categories;
     }
 
-    public Category[] getCategories() {
+    public SubCategory[] getCategories() {
         return categories;
     }
 }

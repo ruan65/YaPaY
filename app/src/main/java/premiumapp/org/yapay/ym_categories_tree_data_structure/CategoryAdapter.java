@@ -1,6 +1,10 @@
 package premiumapp.org.yapay.ym_categories_tree_data_structure;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +15,11 @@ import android.widget.TextView;
 
 import java.util.Set;
 
+import premiumapp.org.yapay.Cv;
+import premiumapp.org.yapay.LocalDialog;
 import premiumapp.org.yapay.R;
 
-public class CategoryAdapter extends ArrayAdapter<Category> {
+public class CategoryAdapter extends ArrayAdapter<SubCategory> {
 
     private LayoutInflater mInflater;
     private Context mCtx;
@@ -36,12 +42,13 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
             view = convertView;
         }
 
-        Category category = getItem(position);
+        SubCategory subcategory = getItem(position);
         ViewHolderCategory viewHolderCategory = (ViewHolderCategory) view.getTag();
-        viewHolderCategory.categoryName.setText(category.getName());
+        viewHolderCategory.categoryName.setText(subcategory.getName());
+        viewHolderCategory.categoryName.setOnClickListener(onCategoryClickListener);
         viewHolderCategory.categoryFrame.removeAllViews();
 
-        Set<SubCategory> subcategories = category.getSubcategories();
+        Set<SubCategory> subcategories = subcategory.getSubcategories();
 
         for (SubCategory sc : subcategories) {
 
@@ -51,7 +58,16 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
                     LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 1f);
             tv.setLayoutParams(layoutParams);
 
-            tv.setText(sc.getName());
+            String plus = "";
+
+            if (sc.getSubcategories() != null) {
+                plus = " +";
+                tv.setTextColor(Color.parseColor("#ff0000"));
+            }
+
+            tv.setText(sc.getName() + plus);
+
+            tv.setOnClickListener(onCategoryClickListener);
 
             viewHolderCategory.categoryFrame.addView(tv);
         }
@@ -64,9 +80,29 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         public final LinearLayout categoryFrame;
 
         public ViewHolderCategory(View view) {
+
             categoryFrame = (LinearLayout) view.findViewById(R.id.grid_frame_subcategories);
             categoryName = (TextView) view.findViewById(R.id.tv_category);
-
         }
     }
+
+    View.OnClickListener onCategoryClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+                case R.id.tv_category:
+                    break;
+
+                case R.id.tv_dynamic_subcategory:
+                    String subCatName = ((TextView) v).getText().toString();
+                    Log.d(Cv.LOG_TAG, "Clicked!!!!!!!!!!!!!!!!!!! " + subCatName);
+
+                    LocalDialog dialog = LocalDialog.newInstance(mCtx, null, subCatName);
+                    dialog.show(((AppCompatActivity) mCtx).getSupportFragmentManager(), null);
+                    break;
+            }
+        }
+    };
 }

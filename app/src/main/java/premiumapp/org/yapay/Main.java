@@ -5,16 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import java.util.Set;
 
 import de.greenrobot.event.EventBus;
 import premiumapp.org.yapay.services.YmConnectService;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.Category;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.ParentCategory;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.SubCategory;
 
 public class Main extends AppCompatActivity {
 

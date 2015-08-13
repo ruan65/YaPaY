@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import premiumapp.org.yapay.ym_categories_tree_data_structure.Category;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.SubCategory;
 
@@ -26,7 +25,7 @@ public class TestCreatingCategoryTreeFromSqlite extends AndroidTestCase {
                 "Телефон", "Интернет и ТВ", "Развлечения"
         }));
 
-        for (Category c : categoryTree.getCategories()) {
+        for (SubCategory c : categoryTree.getCategories()) {
 
             testCatSet.remove(c.getName());
         }

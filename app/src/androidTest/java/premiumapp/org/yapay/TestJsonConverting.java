@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import premiumapp.org.yapay.ym_categories_tree_data_structure.Category;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.SubCategory;
 
@@ -18,7 +17,7 @@ public class TestJsonConverting extends AndroidTestCase {
 
         CategoryTree categoryTree = new CategoryTree(TestUtil.testJsonString);
 
-        Category[] categories = categoryTree.getCategories();
+        SubCategory[] categories = categoryTree.getCategories();
 
         assertEquals("Телефон", categories[0].getName());
         assertEquals("А также:", categories[9].getName());
@@ -42,7 +41,7 @@ public class TestJsonConverting extends AndroidTestCase {
                 "Жанры:Action и шутеры"
         }));
 
-        Category gamesAndCommunication = categories[4];
+        SubCategory gamesAndCommunication = categories[4];
 
         for (SubCategory subCategory : gamesAndCommunication.getSubcategories()) {
 

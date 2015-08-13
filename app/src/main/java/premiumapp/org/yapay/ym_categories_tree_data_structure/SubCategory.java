@@ -9,6 +9,10 @@ public class SubCategory implements ParentCategory {
     private String name;
     private Set<SubCategory> subCategories;
 
+    public SubCategory(String name) {
+        this.name = name;
+    }
+
     public SubCategory(long id, String name) {
         this.id = id;
         this.name = name;

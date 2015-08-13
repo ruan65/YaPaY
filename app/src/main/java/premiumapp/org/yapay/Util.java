@@ -13,16 +13,15 @@ import java.util.List;
 import java.util.Set;
 
 import premiumapp.org.yapay.db.CategoriesDbHelper;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.Category;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.ParentCategory;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.SubCategory;
 
 public class Util {
 
-    public static List<Category> getCategoryTreeFromJsonString(String json) throws JSONException {
+    public static List<SubCategory> getCategoryTreeFromJsonString(String json) throws JSONException {
 
-        List<Category> categoriesTree = new ArrayList<>();
+        List<SubCategory> categoriesTree = new ArrayList<>();
 
         JSONArray categoriesTreeJSON = new JSONArray(json);
 
@@ -30,11 +29,11 @@ public class Util {
 
             JSONObject categoryJSON = categoriesTreeJSON.getJSONObject(i);
 
-            Category category = new Category(categoryJSON.getString(Cv.C_TITLE));
+            SubCategory subcategory = new SubCategory(categoryJSON.getString(Cv.C_TITLE));
 
-            fillSubcategories(categoryJSON, category);
+            fillSubcategories(categoryJSON, subcategory);
 
-            categoriesTree.add(category);
+            categoriesTree.add(subcategory);
         }
         return categoriesTree;
     }
@@ -68,16 +67,16 @@ public class Util {
 
         SQLiteDatabase db = new CategoriesDbHelper(ctx).getWritableDatabase();
 
-        Category[] categories = categoryTreeObject.getCategories();
+        SubCategory[] categories = categoryTreeObject.getCategories();
 
-        for (Category category : categories) {
+        for (SubCategory subcategory : categories) {
 
             // fill categories table
-            String categoryName = category.getName();
+            String categoryName = subcategory.getName();
 
             db.execSQL(String.format(Cv.SQL_INSERT_CATEGORY, categoryName));
 
-            saveSubCatRecursive(db, category);
+            saveSubCatRecursive(db, subcategory);
         }
     }
 
@@ -110,18 +109,19 @@ public class Util {
             return null;
         }
 
-        Category[] categories = new Category[catCursor.getCount()];
+        SubCategory[] categories = new SubCategory[catCursor.getCount()];
 
         int i = 0;
         do {
 
             String catName = catCursor.getString(catCursor.getColumnIndex(Cv.COL_NAME));
+            int catId = catCursor.getInt(catCursor.getColumnIndex(Cv.COL_ID));
 
-            Category category = new Category(catName);
+            SubCategory subcategory = new SubCategory(catId, catName);
 
-            fillSubCategoriesRecursive(db, category);
+            fillSubCategoriesRecursive(db, subcategory);
 
-            categories[i] = category;
+            categories[i] = subcategory;
             i++;
         } while (catCursor.moveToNext());
 
