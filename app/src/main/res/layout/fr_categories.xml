@@ -1,9 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/match_both">
-
-    <ListView
-        android:id="@+id/listview_categories"
-        android:divider="@null"
-        style="@style/list_item_style" />
-
-</FrameLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/categories_grid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnWidth="250dp"
+    android:gravity="center"
+    android:horizontalSpacing="2dp"
+    android:numColumns="auto_fit"
+    android:stretchMode="columnWidth"
+    android:padding="2dp"
+    android:verticalSpacing="2dp" />

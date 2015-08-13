@@ -7,15 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import java.util.Arrays;
 
-import premiumapp.org.yapay.Cv;
 import premiumapp.org.yapay.R;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryAdapter;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
@@ -24,7 +22,7 @@ import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTreeLoader
 public class CategoriesFragment extends Fragment
         implements LoaderManager.LoaderCallbacks<CategoryTree> {
 
-    private ListView mCategoriesList;
+    private GridView mGridCategories;
     private CategoryAdapter mCategoryAdapter;
     private Context mCtx;
 
@@ -46,8 +44,8 @@ public class CategoriesFragment extends Fragment
 
         View root = inflater.inflate(R.layout.fr_categories, container, false);
 
-        mCategoriesList = (ListView) root.findViewById(R.id.listview_categories);
-        mCategoriesList.setAdapter(mCategoryAdapter);
+        mGridCategories = (GridView) root.findViewById(R.id.categories_grid);
+        mGridCategories.setAdapter(mCategoryAdapter);
 
         return root;
     }
