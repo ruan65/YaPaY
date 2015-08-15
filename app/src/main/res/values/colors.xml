@@ -4,4 +4,11 @@
     <color name="primaryLight">#ffffff</color>
     <color name="secondaryText">#757575</color>
     <color name="dialog_header_background">#cccccc</color>
+
+    <color name="primary">#ff1ca8f4</color>
+    <color name="primary_dark">#0288D1</color>
+
+    <color name="text_accent">#ff0000</color>
+
+    <color name="green_accent">#00c853</color>
 </resources>

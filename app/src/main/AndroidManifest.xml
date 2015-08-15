@@ -20,6 +20,16 @@
         </activity>
 
         <service android:name=".services.YmConnectService" />
+
+        <activity
+            android:name=".PayActivity"
+            android:parentActivityName=".Main"
+            android:label="@string/title_activity_pay" >
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Main" />
+        </activity>
     </application>
 
 </manifest>

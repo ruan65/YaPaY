@@ -1,10 +1,8 @@
 package premiumapp.org.yapay.ym_categories_tree_data_structure;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import java.util.Set;
 
-import premiumapp.org.yapay.Cv;
 import premiumapp.org.yapay.LocalDialog;
 import premiumapp.org.yapay.R;
 
@@ -60,9 +57,12 @@ public class CategoryAdapter extends ArrayAdapter<SubCategory> {
 
             String plus = "";
 
-            if (sc.getSubcategories() != null) {
-                plus = " +";
-                tv.setTextColor(Color.parseColor("#ff0000"));
+            Set<SubCategory> subCatsSet = sc.getSubcategories();
+
+            if (subCatsSet != null) {
+                plus = mCtx.getString(R.string.plus);
+                tv.setTextColor(mCtx.getResources().getColor(R.color.text_accent));
+                tv.setTag(sc);
             }
 
             tv.setText(sc.getName() + plus);
@@ -97,9 +97,11 @@ public class CategoryAdapter extends ArrayAdapter<SubCategory> {
 
                 case R.id.tv_dynamic_subcategory:
                     String subCatName = ((TextView) v).getText().toString();
-                    Log.d(Cv.LOG_TAG, "Clicked!!!!!!!!!!!!!!!!!!! " + subCatName);
 
-                    LocalDialog dialog = LocalDialog.newInstance(mCtx, null, subCatName);
+                    LocalDialog dialog = LocalDialog.newInstance(
+                            mCtx,
+                            (SubCategory) v.getTag(),
+                            subCatName);
                     dialog.show(((AppCompatActivity) mCtx).getSupportFragmentManager(), null);
                     break;
             }

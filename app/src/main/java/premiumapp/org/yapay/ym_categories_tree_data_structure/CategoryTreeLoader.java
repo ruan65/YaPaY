@@ -10,6 +10,7 @@ import org.json.JSONException;
 import de.greenrobot.event.EventBus;
 import premiumapp.org.yapay.Cv;
 import premiumapp.org.yapay.Util;
+import premiumapp.org.yapay.events.DataChangedEvent;
 import premiumapp.org.yapay.services.YmConnectService;
 
 public class CategoryTreeLoader extends AsyncTaskLoader<CategoryTree> {
@@ -42,7 +43,7 @@ public class CategoryTreeLoader extends AsyncTaskLoader<CategoryTree> {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(mCtx, "Something wrong with YM server response... ((",
+                    Toast.makeText(mCtx, "Something went wrong with YM server response... ((",
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -66,6 +67,5 @@ public class CategoryTreeLoader extends AsyncTaskLoader<CategoryTree> {
 
     public void onEventMainThread(DataChangedEvent event) {
         onContentChanged();
-        Toast.makeText(mCtx, "Data has refreshed!!!", Toast.LENGTH_LONG).show();
     }
 }

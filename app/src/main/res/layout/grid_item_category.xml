@@ -9,9 +9,11 @@
         android:gravity="center"
         android:fontFamily="sans-serif-medium"
         android:textSize="20dp"
-        android:background="#cccccc"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/category_title_background"
         android:layout_width="match_parent"
         android:minHeight="30dp"
+        android:textColor="@color/primaryLight"
         android:layout_height="wrap_content" />
 
     <LinearLayout

@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">YaPaY</string>
 
-    <string name="action_settings">Settings</string>
     <string name="err_json">Can\'t get categories from server response</string>
+    <string name="data_refresh">Данные Обновлены!!!</string>
+    <string name="vendor">Выберите поставщика услуги:</string>
+
+    <string name="title_activity_pay">Оплата</string>
+    <string name="OK">OK</string>
+    <string name="plus">" +"</string>
+    <string name="title">title</string>
+    <string name="pay">Оплатить</string>
+    <string name="account_title">Аккаунт</string>
+    <string name="account_default">0000000000</string>
+    <string name="sum_missing">Не указана сумма к оплате...</string>
+    <string name="pay_message">Оплачено %s р. в %s. Аккаунт: %s</string>
+    <string name="empty_string" />
+
+    <string-array name="vendors">
+        <item>\"Рога и Копыта\"</item>
+        <item>\"Вяжем Веники\"</item>
+        <item>\"Починяем Примусы\"</item>
+        <item>  ....</item>
+    </string-array>
+
 </resources>

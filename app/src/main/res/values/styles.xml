@@ -1,6 +1,9 @@
 <resources>
 
     <style name="YapTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
     </style>
 
     <style name="wrap_both">
@@ -16,6 +19,20 @@
     <style name="list_item_style" parent="match_both">
         <!-- Here it's a stub.  In screens of sufficient width, this style includes modifications
          for two-pane layout -->
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">170dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/primaryLight</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="pay_text" parent="wrap_both">
+        <item name="android:fontFamily">sans-serif-regular</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
 </resources>

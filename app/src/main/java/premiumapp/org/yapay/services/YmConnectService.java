@@ -2,7 +2,6 @@ package premiumapp.org.yapay.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.util.Log;
 
 import org.json.JSONException;
 
@@ -17,7 +16,7 @@ import de.greenrobot.event.EventBus;
 import premiumapp.org.yapay.Cv;
 import premiumapp.org.yapay.Util;
 import premiumapp.org.yapay.ym_categories_tree_data_structure.CategoryTree;
-import premiumapp.org.yapay.ym_categories_tree_data_structure.DataChangedEvent;
+import premiumapp.org.yapay.events.DataChangedEvent;
 
 public class YmConnectService extends IntentService {
 
@@ -30,11 +29,7 @@ public class YmConnectService extends IntentService {
 
         String categoriesJsonString = getCategoriesFromYmServer();
 
-        Log.d(Cv.LOG_TAG, "categoriesJsonString = " + categoriesJsonString);
-
-
-        if (categoriesJsonString == null) return; // Stream was empty.  No point in parsing.
-
+        if (categoriesJsonString == null) return; // Stream was empty. No point in parsing.
 
         CategoryTree cTree = null;
 

@@ -5,8 +5,11 @@ import java.util.Set;
 
 public class SubCategory implements ParentCategory {
 
+    public boolean vendor;
+
     private long id;
     private String name;
+
     private Set<SubCategory> subCategories;
 
     public SubCategory(String name) {
@@ -36,6 +39,10 @@ public class SubCategory implements ParentCategory {
             subCategories = new HashSet<>();
         }
         subCategories.add(subCategory);
+    }
+
+    public void setSubCategories(Set<SubCategory> subCategories) {
+        this.subCategories = subCategories;
     }
 
     @Override
