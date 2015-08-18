@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="err_json">Сервер не ответил…</string>
-    <string name="data_refresh">Данные обновлены!!!</string>
-</resources>
